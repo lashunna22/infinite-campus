@@ -94,6 +94,22 @@ body {
 .top-action:hover {
   background: rgba(0,0,0,0.08);
 }
+.notification-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: #b3261e;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* BELL */
 .bell {
@@ -128,32 +144,30 @@ body {
 .profile-icon {
   width: 23px;
   height: 23px;
-  border: 2px solid #000;
-  border-radius: 50%;
   position: relative;
+  display: block;
 }
 
-.profile-icon:before {
-  content: "";
+.profile-head {
   position: absolute;
-  width: 7px;
-  height: 7px;
-  border: 2px solid #000;
+  width: 8px;
+  height: 8px;
+  background: #26351c;
   border-radius: 50%;
-  left: 6px;
-  top: 3px;
+  top: 2px;
+  left: 7px;
 }
 
-.profile-icon:after {
-  content: "";
+.profile-body {
   position: absolute;
-  width: 13px;
-  height: 7px;
-  border: 2px solid #000;
-  border-radius: 9px 9px 5px 5px;
+  width: 17px;
+  height: 9px;
+  background: #26351c;
+  border-radius: 10px 10px 3px 3px;
+  bottom: 2px;
   left: 3px;
-  bottom: 3px;
 }
+
 
 /* SIDEBAR */
 .sidebar {
@@ -342,24 +356,34 @@ td {
   </button>
 
   <div class="logo">
-    <span class="campus-mark">i</span>
-    <span class="campus-name">Infinite Campus</span>
-  </div>
+  <svg class="campus-logo" viewBox="0 0 150 42" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 23 C8 13 18 9 27 13 C32 3 49 3 55 13 C67 9 78 16 75 26 C72 34 58 34 49 29 C39 38 22 35 19 29 C12 31 8 28 8 23Z"
+      fill="none" stroke="#26351c" stroke-width="2"/>
+    <text x="10" y="28" font-size="13" font-weight="bold" fill="#26351c">Infinite</text>
+    <text x="10" y="39" font-size="11" font-weight="bold" fill="#26351c">Campus</text>
+  </svg>
+</div>
+
 
   <div class="top-actions">
 
     <button
-      class="top-action"
-      aria-label="Notifications"
-      title="Notifications">
-      <span class="bell"></span>
-    </button>
+  class="top-action notification-button"
+  aria-label="Notifications"
+  title="Notifications">
+  <span class="bell"></span>
+  <span class="notification-badge">9+</span>
+</button>
 
     <button
       class="top-action"
       aria-label="User menu"
       title="User menu">
-      <span class="profile-icon"></span>
+      <span class="profile-icon">
+  <span class="profile-head"></span>
+  <span class="profile-body"></span>
+</span>
+
     </button>
 
   </div>

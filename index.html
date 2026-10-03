@@ -398,20 +398,41 @@ function toggleMenu() {
 
 </script>
 <script>
-const inputs = document.querySelectorAll('input[type="number"]');
+const inputs = document.querySelectorAll(".absent, .tardy");
 
-inputs.forEach((input, index) => {
-    const saved = localStorage.getItem('attendance-' + index);
+function updateTotals() {
+    let absentTotal = 0;
+    let tardyTotal = 0;
+
+    document.querySelectorAll(".absent").forEach(function(input) {
+        absentTotal += Number(input.value) || 0;
+    });
+
+    document.querySelectorAll(".tardy").forEach(function(input) {
+        tardyTotal += Number(input.value) || 0;
+    });
+
+    document.getElementById("absentTotal").textContent = absentTotal;
+    document.getElementById("tardyTotal").textContent = tardyTotal;
+}
+
+inputs.forEach(function(input, index) {
+
+    const saved = localStorage.getItem("attendance-" + index);
 
     if (saved !== null) {
         input.value = saved;
     }
 
-    input.addEventListener('input', () => {
-        localStorage.setItem('attendance-' + index, input.value);
+    input.addEventListener("input", function() {
+        localStorage.setItem("attendance-" + index, input.value);
+        updateTotals();
     });
 });
+
+updateTotals();
 </script>
+
 
 </body>
 </html>

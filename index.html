@@ -112,33 +112,36 @@ body {
 }
 
 /* BELL */
-.bell {
+.notification-button {
   position: relative;
-  width: 19px;
-  height: 19px;
 }
 
-.bell:before {
-  content: "";
-  position: absolute;
-  left: 3px;
-  top: 2px;
-  width: 13px;
-  height: 13px;
-  border: 2px solid #000;
-  border-radius: 9px 9px 5px 5px;
+.bell-icon {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: #26351c;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.bell:after {
-  content: "";
+.notification-badge {
   position: absolute;
-  left: 1px;
-  top: 15px;
-  width: 17px;
-  height: 2px;
-  background: #000;
-  border-radius: 2px;
+  top: 3px;
+  right: 2px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 3px;
+  background: #b3261e;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 9px;
+  font-weight: bold;
+  line-height: 17px;
+  text-align: center;
 }
+
 
 /* PROFILE */
 .profile-icon {
@@ -367,11 +370,16 @@ td {
 
   <div class="top-actions">
 
-    <button
+   <button
   class="top-action notification-button"
   aria-label="Notifications"
   title="Notifications">
-  <span class="bell"></span>
+
+  <svg class="bell-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+    <path d="M10 21h4"></path>
+  </svg>
+
   <span class="notification-badge">9+</span>
 </button>
 

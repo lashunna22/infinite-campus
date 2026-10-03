@@ -397,6 +397,21 @@ function toggleMenu() {
 }
 
 </script>
+<script>
+const inputs = document.querySelectorAll('input[type="number"]');
+
+inputs.forEach((input, index) => {
+    const saved = localStorage.getItem('attendance-' + index);
+
+    if (saved !== null) {
+        input.value = saved;
+    }
+
+    input.addEventListener('input', () => {
+        localStorage.setItem('attendance-' + index, input.value);
+    });
+});
+</script>
 
 </body>
 </html>

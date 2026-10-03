@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Infinite Campus - Attendance</title>
+<title>Infinite Campus</title>
 
 <style>
 * {
@@ -13,152 +13,231 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #f7f7f7;
-  color: #444;
+  background: #fff;
+  color: #333;
 }
 
 /* TOP BAR */
 .topbar {
-    height: 58px;
-    background: #8cc63f;
-    display: flex;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  height: 58px;
+  background: #8cc63f;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
 }
 
 .menu-button {
-    width: 58px;
-    height: 58px;
-    border: none;
-    background: transparent;
-    color: #ffffff;
-    font-size: 25px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 58px;
+  height: 58px;
+  border: none;
+  background: transparent;
+  color: #000;
+  font-size: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo {
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 20px;
-    letter-spacing: -0.5px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 9px;
 }
 
-.logo span {
-    display: block;
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0;
+.campus-mark {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  font-weight: 700;
 }
 
+.campus-name {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+
+.top-actions {
+  margin-left: auto;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-right: 8px;
+}
+
+.top-action {
+  width: 46px;
+  height: 46px;
+  border: none;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.top-action:hover {
+  background: rgba(0,0,0,0.08);
+}
+
+/* BELL */
+.bell {
+  position: relative;
+  width: 19px;
+  height: 19px;
+}
+
+.bell:before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 2px;
+  width: 13px;
+  height: 13px;
+  border: 2px solid #000;
+  border-radius: 9px 9px 5px 5px;
+}
+
+.bell:after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 15px;
+  width: 17px;
+  height: 2px;
+  background: #000;
+  border-radius: 2px;
+}
+
+/* PROFILE */
+.profile-icon {
+  width: 23px;
+  height: 23px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  position: relative;
+}
+
+.profile-icon:before {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  left: 6px;
+  top: 3px;
+}
+
+.profile-icon:after {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 7px;
+  border: 2px solid #000;
+  border-radius: 9px 9px 5px 5px;
+  left: 3px;
+  bottom: 3px;
+}
 
 /* SIDEBAR */
 .sidebar {
-    position: fixed;
-    top: 58px;
-    left: 0;
-    bottom: 0;
-    width: 245px;
-    background: #292929;
-    color: #fff;
-    overflow-y: auto;
-    z-index: 9;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.18);
-    padding-top: 8px;
+  position: fixed;
+  top: 58px;
+  left: 0;
+  bottom: 0;
+  width: 245px;
+  background: #292929;
+  color: #fff;
+  overflow-y: auto;
+  z-index: 9;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.18);
+  padding-top: 8px;
 }
 
 .sidebar > div {
-    display: flex;
-    align-items: center;
-    min-height: 48px;
-    padding: 0 20px;
-    box-sizing: border-box;
-    color: #e5e5e5;
-    font-size: 14px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 20px;
+  color: #e5e5e5;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .sidebar > div:hover {
-    background: #3a3a3a;
+  background: #3a3a3a;
 }
 
 .sidebar > div.active {
-    background: #3a3a3a;
-    border-left: 4px solid #b7d900;
-    padding-left: 16px;
-    color: #fff;
-    font-weight: 600;
+  background: #3a3a3a;
+  border-left: 4px solid #b7d900;
+  padding-left: 16px;
+  color: #fff;
+  font-weight: 600;
 }
 
-.sidebar .icon {
-    width: 32px;
-    min-width: 32px;
-    margin-right: 10px;
-    text-align: center;
-    font-size: 17px;
-}
-
-.sidebar .section {
-    color: #aaa;
-    font-size: 11px;
-    text-transform: uppercase;
-    padding: 18px 20px 7px;
-    letter-spacing: 0.5px;
-}
-
-
-
-
-}
-
-/* MAIN */
+/* MAIN CONTENT */
 .main {
-  margin-left: 220px;
+  margin-left: 245px;
   padding: 82px 28px;
 }
 
 .page-title {
   font-size: 20px;
   font-weight: normal;
-  margin-bottom: 24px;
+  margin: 0 0 24px;
 }
 
-/* TABS */
 .tabs {
   display: flex;
-  width: 200px;
+  width: 220px;
 }
 
 .tab {
   flex: 1;
-  height: 32px;
+  height: 34px;
   border: 1px solid #d3d3d3;
   background: #f5f5f5;
   color: #666;
   cursor: pointer;
+  font-size: 12px;
 }
 
 .tab.active {
   background: #4d98bf;
   border-color: #4d98bf;
-  color: white;
+  color: #fff;
+}
+
+.tab:hover:not(.active) {
+  background: #e9e9e9;
 }
 
 .term {
   font-size: 12px;
   margin: 9px 0 15px;
+  color: #555;
 }
 
 /* TABLE */
 .table-container {
+  width: 100%;
   overflow-x: auto;
 }
 
@@ -166,7 +245,7 @@ table {
   width: 100%;
   min-width: 600px;
   border-collapse: collapse;
-  background: white;
+  background: #fff;
   border: 1px solid #ddd;
 }
 
@@ -178,6 +257,7 @@ th {
   font-weight: normal;
   text-align: left;
   padding: 0 12px;
+  border-bottom: 1px solid #ddd;
 }
 
 th:not(:first-child) {
@@ -206,10 +286,13 @@ td {
   border: 1px solid #aaa;
   border-radius: 2px;
   font-size: 12px;
+  background: #fff;
 }
 
 .number input:focus {
-  outline: 2px solid #4d98bf;
+  outline: none;
+  border-color: #4d98bf;
+  box-shadow: 0 0 0 1px #4d98bf;
 }
 
 .total td {
@@ -227,7 +310,7 @@ td {
 @media (max-width: 700px) {
   .sidebar {
     transform: translateX(-100%);
-    transition: 0.2s;
+    transition: transform 0.2s ease;
   }
 
   .sidebar.open {
@@ -236,7 +319,11 @@ td {
 
   .main {
     margin-left: 0;
-    padding: 78px 12px;
+    padding: 78px 15px 30px;
+  }
+
+  .campus-name {
+    font-size: 16px;
   }
 }
 </style>
@@ -244,34 +331,77 @@ td {
 
 <body>
 
+<!-- TOP BAR -->
 <header class="topbar">
-  <button class="menu-button" onclick="toggleMenu()">☰</button>
+
+  <button
+    class="menu-button"
+    onclick="toggleMenu()"
+    aria-label="Open menu">
+    ☰
+  </button>
 
   <div class="logo">
-    Infinite<br>
-    <span>Campus</span>
+    <span class="campus-mark">i</span>
+    <span class="campus-name">Infinite Campus</span>
   </div>
+
+  <div class="top-actions">
+
+    <button
+      class="top-action"
+      aria-label="Notifications"
+      title="Notifications">
+      <span class="bell"></span>
+    </button>
+
+    <button
+      class="top-action"
+      aria-label="User menu"
+      title="User menu">
+      <span class="profile-icon"></span>
+    </button>
+
+  </div>
+
 </header>
 
+
+<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
 
   <div class="nav-item">Home</div>
+
   <div class="nav-item">Calendar</div>
+
   <div class="nav-item">Assignments</div>
+
   <div class="nav-item">Grades</div>
+
   <div class="nav-item">Grade Book Updates</div>
+
   <div class="nav-item active">Attendance</div>
+
   <div class="nav-item">Schedule</div>
+
   <div class="nav-item">Responsive Schedule</div>
+
   <div class="nav-item">Academic Plan</div>
+
   <div class="nav-item">Food Service</div>
+
   <div class="nav-item">Fees</div>
+
   <div class="nav-item">Documents</div>
+
   <div class="nav-item">Message Center</div>
+
   <div class="nav-item">More</div>
 
 </aside>
 
+
+<!-- MAIN -->
 <main class="main">
 
   <h1 class="page-title">Attendance</h1>
@@ -286,6 +416,7 @@ td {
   <div class="term">
     Term Q1 (08/31/2026 - 11/03/2026)
   </div>
+
 
   <div class="table-container">
 
@@ -409,71 +540,77 @@ td {
 
 </main>
 
+
 <script>
+
+const inputs = document.querySelectorAll(".absent, .tardy");
+
 
 function updateTotals() {
 
   let absentTotal = 0;
   let tardyTotal = 0;
 
+
   document.querySelectorAll(".absent").forEach(function(input) {
+
     absentTotal += Number(input.value) || 0;
+
   });
+
 
   document.querySelectorAll(".tardy").forEach(function(input) {
+
     tardyTotal += Number(input.value) || 0;
+
   });
 
+
   document.getElementById("absentTotal").textContent = absentTotal;
+
   document.getElementById("tardyTotal").textContent = tardyTotal;
+
 }
 
-document.querySelectorAll("input").forEach(function(input) {
-  input.addEventListener("input", updateTotals);
-});
-
-function toggleMenu() {
-  document.getElementById("sidebar").classList.toggle("open");
-}
-
-</script>
-<script>
-const inputs = document.querySelectorAll(".absent, .tardy");
-
-function updateTotals() {
-    let absentTotal = 0;
-    let tardyTotal = 0;
-
-    document.querySelectorAll(".absent").forEach(function(input) {
-        absentTotal += Number(input.value) || 0;
-    });
-
-    document.querySelectorAll(".tardy").forEach(function(input) {
-        tardyTotal += Number(input.value) || 0;
-    });
-
-    document.getElementById("absentTotal").textContent = absentTotal;
-    document.getElementById("tardyTotal").textContent = tardyTotal;
-}
 
 inputs.forEach(function(input, index) {
 
-    const saved = localStorage.getItem("attendance-" + index);
+  const saved = localStorage.getItem("attendance-" + index);
 
-    if (saved !== null) {
-        input.value = saved;
-    }
 
-    input.addEventListener("input", function() {
-        localStorage.setItem("attendance-" + index, input.value);
-        updateTotals();
-    });
+  if (saved !== null) {
+
+    input.value = saved;
+
+  }
+
+
+  input.addEventListener("input", function() {
+
+    localStorage.setItem(
+      "attendance-" + index,
+      input.value
+    );
+
+    updateTotals();
+
+  });
+
 });
 
-updateTotals();
-</script>
 
+updateTotals();
+
+
+function toggleMenu() {
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+</script>
 
 </body>
 </html>
-

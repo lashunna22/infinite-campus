@@ -71,57 +71,48 @@ body {
     overflow-y: auto;
     z-index: 9;
     box-shadow: 2px 0 5px rgba(0,0,0,0.18);
+    padding-top: 8px;
 }
 
-.sidebar ul {
-    list-style: none;
-    margin: 0;
-    padding: 8px 0;
-}
-
-.sidebar li {
-    margin: 0;
-    padding: 0;
-}
-
-.sidebar a {
+.sidebar > div {
     display: flex;
     align-items: center;
     min-height: 48px;
-    padding: 0 22px;
+    padding: 0 20px;
+    box-sizing: border-box;
     color: #e5e5e5;
-    text-decoration: none;
     font-size: 14px;
-    font-weight: 400;
-    border-left: 4px solid transparent;
-    transition: background 0.15s ease;
+    cursor: pointer;
 }
 
-.sidebar a:hover {
+.sidebar > div:hover {
     background: #3a3a3a;
 }
 
-.sidebar a.active {
+.sidebar > div.active {
     background: #3a3a3a;
-    color: #ffffff;
-    border-left-color: #b7d900;
+    border-left: 4px solid #b7d900;
+    padding-left: 16px;
+    color: #fff;
     font-weight: 600;
 }
 
 .sidebar .icon {
-    width: 30px;
-    margin-right: 8px;
-    font-size: 17px;
+    width: 32px;
+    min-width: 32px;
+    margin-right: 10px;
     text-align: center;
+    font-size: 17px;
 }
 
 .sidebar .section {
     color: #aaa;
     font-size: 11px;
     text-transform: uppercase;
-    padding: 18px 22px 7px;
+    padding: 18px 20px 7px;
     letter-spacing: 0.5px;
 }
+
 
 
 

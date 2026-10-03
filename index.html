@@ -1,76 +1,403 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Infinite Campus</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infinite Campus - Attendance</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f7f7f7;
+  color: #444;
+}
+
+/* TOP BAR */
+.topbar {
+  height: 58px;
+  background: #b7d84b;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.menu-button {
+  width: 58px;
+  height: 58px;
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  cursor: pointer;
+  color: #555;
+}
+
+.logo {
+  color: #333;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 12px;
+}
+
+.logo span {
+  font-size: 9px;
+  font-weight: normal;
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 58px;
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  background: #303030;
+  color: #ddd;
+  padding-top: 10px;
+}
+
+.nav-item {
+  height: 43px;
+  padding-left: 22px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  border-left: 3px solid transparent;
+}
+
+.nav-item.active {
+  background: #383838;
+  color: white;
+  border-left-color: #b7d84b;
+}
+
+/* MAIN */
+.main {
+  margin-left: 220px;
+  padding: 82px 28px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 24px;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  width: 200px;
+}
+
+.tab {
+  flex: 1;
+  height: 32px;
+  border: 1px solid #d3d3d3;
+  background: #f5f5f5;
+  color: #666;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #4d98bf;
+  border-color: #4d98bf;
+  color: white;
+}
+
+.term {
+  font-size: 12px;
+  margin: 9px 0 15px;
+}
+
+/* TABLE */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  background: white;
+  border: 1px solid #ddd;
+}
+
+th {
+  height: 40px;
+  background: #eee;
+  color: #777;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: left;
+  padding: 0 12px;
+}
+
+th:not(:first-child) {
+  text-align: center;
+}
+
+td {
+  height: 45px;
+  border-bottom: 1px solid #ddd;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+.course {
+  color: #4286a8;
+}
+
+.number {
+  text-align: center;
+}
+
+.number input {
+  width: 58px;
+  height: 30px;
+  text-align: center;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+.number input:focus {
+  outline: 2px solid #4d98bf;
+}
+
+.total td {
+  font-weight: bold;
+  background: #fafafa;
+}
+
+.note {
+  margin-top: 12px;
+  color: #777;
+  font-size: 11px;
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: 0.2s;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 78px 12px;
+  }
+}
+</style>
 </head>
+
 <body>
 
-  <h1>Infinite Campus</h1>
-  <h2>Attendance</h2>
+<header class="topbar">
+  <button class="menu-button" onclick="toggleMenu()">☰</button>
 
-  <p>Q1 — 08/31/2026 - 11/03/2026</p>
+  <div class="logo">
+    Infinite<br>
+    <span>Campus</span>
+  </div>
+</header>
 
-  <table border="1">
-    <tr>
-      <th>COURSE</th>
-      <th>ABSENT</th>
-      <th>TARDY</th>
-    </tr>
+<aside class="sidebar" id="sidebar">
 
-    <tr>
-      <td>Advisory</td>
-      <td><input type="number" value="9"></td>
-      <td><input type="number" value="2"></td>
-    </tr>
+  <div class="nav-item">Home</div>
+  <div class="nav-item">Calendar</div>
+  <div class="nav-item">Assignments</div>
+  <div class="nav-item">Grades</div>
+  <div class="nav-item">Grade Book Updates</div>
+  <div class="nav-item active">Attendance</div>
+  <div class="nav-item">Schedule</div>
+  <div class="nav-item">Responsive Schedule</div>
+  <div class="nav-item">Academic Plan</div>
+  <div class="nav-item">Food Service</div>
+  <div class="nav-item">Fees</div>
+  <div class="nav-item">Documents</div>
+  <div class="nav-item">Message Center</div>
+  <div class="nav-item">More</div>
 
-    <tr>
-      <td>Algebra 1</td>
-      <td><input type="number" value="14"></td>
-      <td><input type="number" value="0"></td>
-    </tr>
+</aside>
 
-    <tr>
-      <td>Biology</td>
-      <td><input type="number" value="14"></td>
-      <td><input type="number" value="0"></td>
-    </tr>
+<main class="main">
 
-    <tr>
-      <td>Engl Lang Arts 11</td>
-      <td><input type="number" value="14"></td>
-      <td><input type="number" value="0"></td>
-    </tr>
+  <h1 class="page-title">Attendance</h1>
 
-    <tr>
-      <td>Flex</td>
-      <td><input type="number" value="7"></td>
-      <td><input type="number" value="0"></td>
-    </tr>
+  <div class="tabs">
+    <button class="tab active">Q1</button>
+    <button class="tab">Q2</button>
+    <button class="tab">Q3</button>
+    <button class="tab">Q4</button>
+  </div>
 
-    <tr>
-      <td>Health & Wellness</td>
-      <td><input type="number" value="15"></td>
-      <td><input type="number" value="0"></td>
-    </tr>
+  <div class="term">
+    Term Q1 (08/31/2026 - 11/03/2026)
+  </div>
 
-    <tr>
-      <td>Personal/Financial Literacy</td>
-      <td><input type="number" value="15"></td>
-      <td><input type="number" value="0"></td>
-    </tr>
+  <div class="table-container">
 
-    <tr>
-      <td>Small Animal Vet Science</td>
-      <td><input type="number" value="15"></td>
-      <td><input type="number" value="0"></td>
-    </tr>
+    <table>
 
-    <tr>
-      <td>US Govt & Economic Studies</td>
-      <td><input type="number" value="18"></td>
-      <td><input type="number" value="0"></td>
-    </tr>
-  </table>
+      <thead>
+        <tr>
+          <th>COURSE</th>
+          <th>ABSENT</th>
+          <th>TARDY</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td class="course">Advisory</td>
+          <td class="number">
+            <input class="absent" type="number" min="0" value="9">
+          </td>
+          <td class="number">
+            <input class="tardy" type="number" min="0" value="2">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="course">Algebra 1</td>
+          <td class="number">
+            <input class="absent" type="number" min="0" value="14">
+          </td>
+          <td class="number">
+            <input class="tardy" type="number" min="0" value="0">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="course">Biology</td>
+          <td class="number">
+            <input class="absent" type="number" min="0" value="14">
+          </td>
+          <td class="number">
+            <input class="tardy" type="number" min="0" value="0">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="course">Engl Lang Arts 11</td>
+          <td class="number">
+            <input class="absent" type="number" min="0" value="14">
+          </td>
+          <td class="number">
+            <input class="tardy" type="number" min="0" value="0">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="course">Flex</td>
+          <td class="number">
+            <input class="absent" type="number" min="0" value="7">
+          </td>
+          <td class="number">
+            <input class="tardy" type="number" min="0" value="0">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="course">Health &amp; Wellness</td>
+          <td class="number">
+            <input class="absent" type="number" min="0" value="15">
+          </td>
+          <td class="number">
+            <input class="tardy" type="number" min="0" value="0">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="course">Personal/Financial Literacy</td>
+          <td class="number">
+            <input class="absent" type="number" min="0" value="15">
+          </td>
+          <td class="number">
+            <input class="tardy" type="number" min="0" value="0">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="course">Small Animal Vet Science</td>
+          <td class="number">
+            <input class="absent" type="number" min="0" value="15">
+          </td>
+          <td class="number">
+            <input class="tardy" type="number" min="0" value="0">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="course">US Govt &amp; Economic Studies</td>
+          <td class="number">
+            <input class="absent" type="number" min="0" value="18">
+          </td>
+          <td class="number">
+            <input class="tardy" type="number" min="0" value="0">
+          </td>
+        </tr>
+
+        <tr class="total">
+          <td>Totals</td>
+          <td class="number" id="absentTotal">121</td>
+          <td class="number" id="tardyTotal">2</td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <div class="note">
+    Tap any number to edit it. Totals update automatically.
+  </div>
+
+</main>
+
+<script>
+
+function updateTotals() {
+
+  let absentTotal = 0;
+  let tardyTotal = 0;
+
+  document.querySelectorAll(".absent").forEach(function(input) {
+    absentTotal += Number(input.value) || 0;
+  });
+
+  document.querySelectorAll(".tardy").forEach(function(input) {
+    tardyTotal += Number(input.value) || 0;
+  });
+
+  document.getElementById("absentTotal").textContent = absentTotal;
+  document.getElementById("tardyTotal").textContent = tardyTotal;
+}
+
+document.querySelectorAll("input").forEach(function(input) {
+  input.addEventListener("input", updateTotals);
+});
+
+function toggleMenu() {
+  document.getElementById("sidebar").classList.toggle("open");
+}
+
+</script>
 
 </body>
 </html>
+

@@ -1,2450 +1,401 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Infinite Campus</title>
-
-<style>
-*{
-  box-sizing:border-box;
-}
-
-html,body{
-  margin:0;
-  min-height:100%;
-  font-family:Arial,Helvetica,sans-serif;
-  color:#555;
-  background:#fff;
-}
-
-body{
-  font-size:14px;
-}
-
-button,input,select,textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-:root{
-  --green:#b6e000;
-  --blue:#4c9dcc;
-  --sidebar:#293536;
-  --sidebar2:#344143;
-  --line:#d8d8d8;
-  --text:#555;
-  --link:#4c83a8;
-}
-
-
-/* =========================
-   TOP BAR
-========================= */
-
-.topbar{
-  height:58px;
-  background:var(--green);
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  box-shadow:0 1px 3px #7775;
-}
-
-.menu-button{
-  width:58px;
-  height:58px;
-  border:0;
-  background:transparent;
-  color:#344000;
-  font-size:27px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.logo{
-  height:58px;
-  display:flex;
-  align-items:center;
-  color:#364000;
-  gap:7px;
-}
-
-.logo-mark{
-  width:34px;
-  height:26px;
-  position:relative;
-}
-
-.logo-mark:before,
-.logo-mark:after{
-  content:"";
-  position:absolute;
-  border:3px solid #435000;
-  border-radius:50%;
-  width:22px;
-  height:12px;
-  top:6px;
-  transform:rotate(-25deg);
-}
-
-.logo-mark:before{
-  left:1px;
-}
-
-.logo-mark:after{
-  left:10px;
-  transform:rotate(25deg);
-}
-
-.logo-text{
-  font-size:17px;
-  line-height:15px;
-  font-weight:500;
-}
-
-.logo-text b{
-  display:block;
-  font-size:18px;
-  font-weight:500;
-}
-
-.top-actions{
-  margin-left:auto;
-  height:58px;
-  display:flex;
-  align-items:center;
-  padding-right:8px;
-}
-
-.top-action{
-  width:48px;
-  height:48px;
-  border:0;
-  background:transparent;
-  color:#405000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.bell{
-  position:relative;
-  width:18px;
-  height:19px;
-}
-
-.bell:before{
-  content:"";
-  position:absolute;
-  left:3px;
-  top:1px;
-  width:12px;
-  height:14px;
-  border-radius:9px 9px 4px 4px;
-  background:#455000;
-}
-
-.bell:after{
-  content:"";
-  position:absolute;
-  left:1px;
-  bottom:0;
-  width:16px;
-  height:3px;
-  border-radius:3px;
-  background:#455000;
-}
-
-.profile-icon{
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  background:#455000;
-  position:relative;
-}
-
-.profile-icon:before{
-  content:"";
-  position:absolute;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--green);
-  left:6.5px;
-  top:3px;
-}
-
-.profile-icon:after{
-  content:"";
-  position:absolute;
-  width:12px;
-  height:6px;
-  border-radius:8px 8px 4px 4px;
-  background:var(--green);
-  left:4px;
-  bottom:3px;
-}
-
-
-/* =========================
-   SIDEBAR
-========================= */
-
-.sidebar{
-  position:fixed;
-  top:58px;
-  left:0;
-  bottom:0;
-  width:245px;
-  background:var(--sidebar);
-  color:#fff;
-  z-index:90;
-  overflow-y:auto;
-  padding-top:8px;
-}
-
-.nav-item{
-  min-height:45px;
-  padding:0 22px;
-  display:flex;
-  align-items:center;
-  color:#eee;
-  font-size:14px;
-  border-left:4px solid transparent;
-  transition:.12s;
-}
-
-.nav-item:hover{
-  background:#344143;
-}
-
-.nav-item.active{
-  background:#344143;
-  border-left-color:var(--green);
-  font-weight:bold;
-}
-
-
-/* =========================
-   MAIN
-========================= */
-
-.main{
-  margin-left:245px;
-  padding:82px 34px 50px;
-  min-height:100vh;
-  max-width:1450px;
-}
-
-.page-title{
-  font-size:22px;
-  font-weight:400;
-  color:#555;
-  margin:0 0 25px;
-}
-
-.school-year{
-  font-size:14px;
-  color:#777;
-  margin:0 0 17px;
-}
-
-.card{
-  border:1px solid #ddd;
-  background:#fff;
-}
-
-
-/* =========================
-   TABS
-========================= */
-
-.tabs{
-  display:flex;
-  width:max-content;
-  margin-bottom:10px;
-}
-
-.tab{
-  min-width:69px;
-  height:34px;
-  padding:0 14px;
-  border:1px solid #bbb;
-  background:#f7f7f7;
-  color:#666;
-  margin-left:-1px;
-}
-
-.tab:first-child{
-  margin-left:0;
-}
-
-.tab:hover{
-  background:#eee;
-}
-
-.tab.active{
-  background:var(--blue);
-  border-color:#438ab7;
-  color:#fff;
-  font-weight:bold;
-}
-
-.term{
-  font-size:12px;
-  color:#777;
-  margin:10px 0 14px;
-}
-
-
-/* =========================
-   TABLES
-========================= */
-
-.table-wrap{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  border:1px solid #ddd;
-  background:#fff;
-}
-
-th{
-  height:42px;
-  background:#e5e5e2;
-  color:#555;
-  font-size:12px;
-  text-align:left;
-  padding:0 14px;
-  border-bottom:1px solid #ccc;
-}
-
-th.center{
-  text-align:center;
-}
-
-td{
-  height:47px;
-  padding:0 14px;
-  border-bottom:1px solid #ddd;
-  font-size:13px;
-}
-
-td.center{
-  text-align:center;
-}
-
-.course-link{
-  color:var(--link);
-  font-weight:600;
-}
-
-.total td{
-  font-weight:bold;
-  background:#fafafa;
-}
-
-
-/* =========================
-   EDITABLE BOXES
-========================= */
-
-.edit{
-  width:62px;
-  height:30px;
-  border:1px solid #aaa;
-  border-radius:2px;
-  background:#fff;
-  text-align:center;
-  color:#555;
-}
-
-.edit:hover{
-  border-color:#4d98bf;
-}
-
-.edit:focus{
-  outline:2px solid #4d98bf;
-  outline-offset:1px;
-  border-color:#4d98bf;
-}
-
-textarea.edit{
-  width:100%;
-  height:55px;
-  text-align:left;
-  padding:8px;
-  resize:vertical;
-}
-
-select.edit{
-  width:auto;
-  min-width:110px;
-}
-
-.full-edit{
-  width:100%;
-  height:35px;
-  text-align:left;
-  padding:0 8px;
-}
-
-.note{
-  font-size:11px;
-  color:#888;
-  margin-top:10px;
-}
-
-
-/* =========================
-   HOME
-========================= */
-
-.home-grid{
-  display:grid;
-  grid-template-columns:1.4fr 1fr 260px;
-  gap:18px;
-}
-
-.profile-card,
-.announcement-card,
-.cart-card,
-.quick-card{
-  border:1px solid #ddd;
-  background:#fff;
-}
-
-.profile-head{
-  padding:18px;
-  border-bottom:1px solid #ddd;
-  display:flex;
-  gap:18px;
-}
-
-.avatar{
-  width:96px;
-  height:116px;
-  background:#e7d48b;
-  border:1px solid #ddd;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#777;
-  font-size:12px;
-}
-
-.profile-info h2{
-  font-size:17px;
-  font-weight:400;
-  margin:0 0 10px;
-  color:#555;
-}
-
-.profile-info p{
-  margin:6px 0;
-  font-size:12px;
-}
-
-.section-title{
-  font-size:12px;
-  font-weight:bold;
-  color:#777;
-  padding:14px 15px 8px;
-}
-
-.quick-row{
-  padding:12px 15px;
-  border-top:1px solid #ddd;
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-}
-
-.announcement-card{
-  min-height:310px;
-}
-
-.announcement{
-  padding:14px;
-  border-top:1px solid #ddd;
-}
-
-.announcement h3{
-  font-size:13px;
-  margin:0 0 5px;
-  color:#555;
-}
-
-.announcement p{
-  font-size:12px;
-  line-height:1.5;
-  margin:5px 0;
-}
-
-.cart-card{
-  text-align:center;
-  padding:18px;
-  min-height:145px;
-}
-
-.cart-card strong{
-  display:block;
-  font-size:12px;
-}
-
-.cart-btn{
-  display:block;
-  width:100%;
-  height:34px;
-  background:#fff;
-  border:1px solid #bbb;
-  margin-top:10px;
-  color:#666;
-}
-
-.quick-card{
-  margin-top:18px;
-}
-
-.small-btn{
-  border:1px solid #bbb;
-  background:#fff;
-  padding:7px 12px;
-  color:#666;
-}
-
-.small-btn:hover{
-  background:#f3f3f3;
-}
-
-
-/* =========================
-   GRADES
-========================= */
-
-.grade-card{
-  border:1px solid #ddd;
-  margin-top:16px;
-}
-
-.grade-header{
-  padding:15px 16px;
-  border-bottom:1px solid #ddd;
-  color:#4c83a8;
-  font-size:18px;
-}
-
-.grade-row{
-  min-height:54px;
-  padding:0 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid #ddd;
-}
-
-.grade-row:last-child{
-  border-bottom:0;
-}
-
-.grade-label{
-  font-size:13px;
-  color:#777;
-}
-
-.grade-value{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-
-/* =========================
-   ASSIGNMENTS
-========================= */
-
-.assignment-toolbar{
-  display:flex;
-  gap:5px;
-  margin-bottom:10px;
-}
-
-.pill{
-  height:28px;
-  padding:0 12px;
-  border:1px solid #bbb;
-  background:#fff;
-  color:#666;
-}
-
-.pill.active{
-  background:#eee;
-  font-weight:bold;
-}
-
-.assignment-date{
-  font-size:12px;
-  font-weight:bold;
-  padding:10px 10px 6px;
-  background:#fafafa;
-  border-top:1px solid #ddd;
-}
-
-.assignment{
-  min-height:50px;
-  border-top:1px solid #ddd;
-  display:grid;
-  grid-template-columns:35% 25% 20% 20%;
-  align-items:center;
-  padding:0 12px;
-}
-
-.assignment-title{
-  color:#555;
-  font-weight:600;
-}
-
-.assignment-course{
-  color:#777;
-}
-
-.status{
-  font-size:10px;
-  font-weight:bold;
-  border:1px solid #d39b9b;
-  color:#b66d6d;
-  border-radius:12px;
-  padding:5px 9px;
-  width:max-content;
-}
-
-.score{
-  text-align:right;
-  color:#666;
-}
-
-
-/* =========================
-   SCHEDULE
-========================= */
-
-.schedule-day{
-  border:1px solid #ddd;
-  margin-top:14px;
-}
-
-.day-label{
-  padding:10px;
-  background:#f2f2f2;
-  font-size:11px;
-  font-weight:bold;
-  color:#777;
-}
-
-.period{
-  display:grid;
-  grid-template-columns:55px 1fr 1fr;
-  min-height:72px;
-  border-top:1px solid #ddd;
-  align-items:center;
-  padding:8px 14px;
-}
-
-.period-num{
-  font-weight:bold;
-  color:#777;
-}
-
-.subject{
-  color:#4c83a8;
-  font-weight:bold;
-}
-
-.subtext{
-  font-size:11px;
-  color:#777;
-  margin-top:5px;
-}
-
-.teacher{
-  font-size:12px;
-  color:#666;
-}
-
-
-/* =========================
-   FEES
-========================= */
-
-.fee-card{
-  max-width:700px;
-  border:1px solid #ddd;
-  background:#fff;
-}
-
-.fee-row{
-  min-height:55px;
-  padding:0 18px;
-  border-bottom:1px solid #ddd;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.fee-row:last-child{
-  border-bottom:0;
-}
-
-.fee-label{
-  color:#666;
-}
-
-.fee-value{
-  color:#555;
-}
-
-
-/* =========================
-   STATIC PAGES
-========================= */
-
-.empty{
-  padding:35px;
-  text-align:center;
-  color:#999;
-  border:1px solid #ddd;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:800px){
-
-  .sidebar{
-    width:220px;
-    transform:translateX(-100%);
-    transition:.2s;
-  }
-
-  .sidebar.open{
-    transform:translateX(0);
-  }
-
-  .main{
-    margin-left:0;
-    padding:80px 15px 40px;
-  }
-
-  .home-grid{
-    grid-template-columns:1fr;
-  }
-
-  .assignment{
-    grid-template-columns:1fr;
-    gap:6px;
-    padding:12px;
-  }
-
-  .period{
-    grid-template-columns:45px 1fr;
-  }
-
-  .teacher{
-    grid-column:2;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<!-- =========================
-     TOP BAR
-========================= -->
-
-<header class="topbar">
-
-  <button
-    class="menu-button"
-    onclick="toggleMenu()"
-    aria-label="Open menu">
-    ☰
-  </button>
-
-  <div class="logo">
-
-    <div class="logo-mark"></div>
-
-    <div class="logo-text">
-      Infinite
-      <b>Campus</b>
-    </div>
-
-  </div>
-
-  <div class="top-actions">
-
-    <button
-      class="top-action"
-      title="Notifications">
-      <span class="bell"></span>
-    </button>
-
-    <button
-      class="top-action"
-      title="User menu">
-      <span class="profile-icon"></span>
-    </button>
-
-  </div>
-
+<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Infinite Campus</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2392C83E'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Arial' font-size='42' font-weight='700'%3EC%3C/text%3E%3C/svg%3E"><style>
+*{box-sizing:border-box}body{margin:0;font:14px Arial;color:#444}.top{height:58px;background:#92c83e;position:fixed;top:0;left:0;right:0;z-index:5;display:flex;align-items:center}.menu{width:58px;height:58px;border:0;background:#0001;font-size:24px}.brand{display:flex;align-items:center;font-weight:bold;line-height:15px}.mark{width:38px;height:28px;position:relative}.mark:before,.mark:after{content:"";position:absolute;width:25px;height:16px;border:2px solid #111;border-radius:50%;top:5px}.mark:before{left:1px;transform:rotate(-25deg)}.mark:after{left:13px;transform:rotate(25deg)}.actions{margin-left:auto}.icon{width:48px;height:48px;border:0;background:none;font-size:22px}.side{position:fixed;top:58px;bottom:0;width:245px;background:#29393b;color:#fff;overflow:auto}.nav{height:48px;padding:0 22px;display:flex;align-items:center;cursor:pointer}.nav.active{border-left:4px solid #c5e41d;padding-left:18px;background:#fff1;font-weight:bold}main{margin-left:245px;padding:80px 32px}.page{display:none;max-width:980px}.page.active{display:block}h1{font-size:21px;font-weight:400;margin:0 0 25px}.school{color:#777;margin-bottom:15px}.tabs{display:flex;margin-bottom:9px}.tab{height:32px;padding:0 16px;border:1px solid #ccc;border-right:0;background:#fff}.tab:last-child{border-right:1px solid #ccc}.tab.active{background:#4d99c5;color:#fff;border-color:#4d99c5;font-weight:bold}.term{font-size:12px;color:#777;margin:7px 0 13px}.panel,.card{border:1px solid #ddd;background:#fff}table{width:100%;border-collapse:collapse}th{height:42px;background:#e7e9e8;text-align:left;padding:0 13px;font-size:11px}td{height:46px;border-bottom:1px solid #ddd;padding:0 13px}.c{text-align:center}.course{color:#4d83a5;font-weight:bold}.edit,.ei{border:1px solid transparent;background:transparent;outline:0;color:inherit}.edit:focus,.ei:focus{border-color:#4d99c5;background:#fff}.ei{height:30px;width:75px;text-align:center}.total td{font-weight:bold;background:#fafafa}.home{display:grid;grid-template-columns:1.8fr .8fr 180px;gap:16px}.profile{padding:18px}.profiletop{display:flex;gap:18px}.photo{width:96px;height:120px;object-fit:cover;border:1px solid #ddd}.label{font-size:11px;font-weight:bold;color:#777;margin-top:10px}.section{padding:12px 14px;border-bottom:1px solid #ddd;font-weight:bold;font-size:12px}.info,.announce{padding:13px;border-bottom:1px solid #eee}.assignrow{display:grid;grid-template-columns:34% 25% 1fr 90px 30px;padding:0 14px;min-height:48px;align-items:center;border-bottom:1px solid #ddd;font-size:12px}.status{border:1px solid #d99;border-radius:12px;padding:3px 8px;color:#b66;width:max-content;font-size:10px}.graderow{display:grid;grid-template-columns:1fr 100px;padding:16px 18px;border-bottom:1px solid #ddd;align-items:center}.grade{font-size:17px;color:#4d83a5}.sday{display:inline-block;border:1px solid #8ab1c8;border-radius:12px;padding:4px 9px;color:#4d83a5;font-size:10px;font-weight:bold;margin:5px 0 8px}.srow{display:grid;grid-template-columns:70px 1fr 300px;min-height:82px;border-top:1px solid #ddd;align-items:center;padding:8px 14px}.period{font-weight:bold;color:#777}.stime{font-size:11px;color:#777;margin-top:5px}.teacher{font-size:12px;line-height:18px}.feerow{display:grid;grid-template-columns:1fr 160px 150px;min-height:55px;align-items:center;border-bottom:1px solid #ddd;padding:0 14px}.head{background:#e7e9e8;font-weight:bold;font-size:11px}@media(max-width:700px){.side{transform:translateX(-100%);transition:.2s}.side.open{transform:translateX(0)}main{margin-left:0;padding:75px 12px}.home{grid-template-columns:1fr}.assignrow{grid-template-columns:1fr;gap:5px;padding:12px}.srow{grid-template-columns:45px 1fr}.teacher{grid-column:2}}
+</style></head><body>
+
+<header class="top">
+<button class="menu" onclick="menu()">☰</button>
+<div class="brand"><span class="mark"></span><span>Infinite<br>Campus</span></div>
+<div class="actions">
+<button class="icon" aria-label="Notifications">&#128276;</button>
+<button class="icon" aria-label="Profile">&#9679;</button>
+</div>
 </header>
 
-
-<!-- =========================
-     SIDEBAR
-========================= -->
-
-<aside class="sidebar" id="sidebar">
-
-  <div class="nav-item active" data-page="home">
-    Home
-  </div>
-
-  <div class="nav-item" data-page="calendar">
-    Calendar
-  </div>
-
-  <div class="nav-item" data-page="assignments">
-    Assignments
-  </div>
-
-  <div class="nav-item" data-page="grades">
-    Grades
-  </div>
-
-  <div class="nav-item" data-page="gradebook">
-    Grade Book Updates
-  </div>
-
-  <div class="nav-item" data-page="attendance">
-    Attendance
-  </div>
-
-  <div class="nav-item" data-page="schedule">
-    Schedule
-  </div>
-
-  <div class="nav-item" data-page="responsive">
-    Responsive Schedule
-  </div>
-
-  <div class="nav-item" data-page="academic">
-    Academic Plan
-  </div>
-
-  <div class="nav-item" data-page="food">
-    Food Service
-  </div>
-
-  <div class="nav-item" data-page="fees">
-    Fees
-  </div>
-
-  <div class="nav-item" data-page="documents">
-    Documents
-  </div>
-
-  <div class="nav-item" data-page="messages">
-    Message Center
-  </div>
-
-  <div class="nav-item" data-page="more">
-    More
-  </div>
-
+<aside class="side" id="side">
+<div class="nav active" data-p="home" onclick="show('home')">Home</div>
+<div class="nav" data-p="calendar" onclick="show('calendar')">Calendar</div>
+<div class="nav" data-p="assignments" onclick="show('assignments')">Assignments</div>
+<div class="nav" data-p="grades" onclick="show('grades')">Grades</div>
+<div class="nav" data-p="gradebook" onclick="show('gradebook')">Grade Book Updates</div>
+<div class="nav" data-p="attendance" onclick="show('attendance')">Attendance</div>
+<div class="nav" data-p="schedule" onclick="show('schedule')">Schedule</div>
+<div class="nav" data-p="responsive" onclick="show('responsive')">Responsive Schedule</div>
+<div class="nav" data-p="academic" onclick="show('academic')">Academic Plan</div>
+<div class="nav" data-p="food" onclick="show('food')">Food Service</div>
+<div class="nav" data-p="fees" onclick="show('fees')">Fees</div>
+<div class="nav" data-p="documents" onclick="show('documents')">Documents</div>
+<div class="nav" data-p="messages" onclick="show('messages')">Message Center</div>
+<div class="nav" data-p="more" onclick="show('more')">More</div>
 </aside>
 
+<main>
 
-<!-- =========================
-     PAGE AREA
-========================= -->
+<section class="page active" id="home">
+<h1>Student Profile</h1>
+<div class="home">
 
-<main class="main" id="app"></main>
+<div>
+<div class="card profile">
+<div class="profiletop">
+<img class="photo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABcQERQRDhcUEhQaGBcbIjklIh8fIkYyNSk5UkhXVVFIUE5bZoNvW2F8Yk5QcptzfIeLkpSSWG2grJ+OqoOPko3/2wBDARgaGiIeIkMlJUONXlBejY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY3/wAARCABaAEMDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAgMAAQQFBv/EADQQAAIBAgMFBAcJAAAAAAAAAAABAgMREiFSBDFRkaEFBmFxFBYiMkFCohNDU3KBgpLh8P/EABcBAQEBAQAAAAAAAAAAAAAAAAABAwT/xAAbEQEAAgMBAQAAAAAAAAAAAAAAERQCA1EBE//aAAwDAQACEQMRAD8A8nYux1l2JXfzQ5sZHsGq99SC5lhHFwsmFnej2BN760OQxd3uO0RX7RA87hZeBnpF3ejez2jP8v8AYce7sH9+/wCJYHmMDJgZ6mPd2i1f7eTXgkH6u7Ot9Wp0EDyeBkPWer2zfiVOhCQNSpxuNVNf5C41afF8g1Xpr4S5GX2w6sGxpRzy378g1Shw6C1tENMgltMND5k++vpBqpxve2YSgvEStpjofML0paOpLGvpBtNQmvZYWCDvvy3iFtVt1NL9S/S5aIks6+kGXp+KIKW1yavGMWvAhLWvpDlxQxJ8DbBLghsUZ1fOrLAoy0vkGqc9L5G9BoVfOksCpVH8kuQSoVNDN6LLUx6SwrZ6uhl+jVWrYepvRRauCSww2SdOCjGNkt2ZDcQtbBZc+LGJiIsZFnQh8WGmKi8g0wGJhAJkljt7OHxuUGmWIhKTeVliz90b8M3mBdyFXIByYzeljYzlp6mdSlp6jIylwXMg1Qk3vVl5jEzPCTtnvGKWQD15lt2WWb8xSZJSs1ZXAYpy4fUFdcRKm7e79Rallnk/MoZdEFYkQDmJhqQlBoB8ZDIyM8RkSB6kXiFIIBmImIAooPF4kFkA/9k=">
 
+<div>
+<div class="label">STUDENT NAME</div>
+<div class="edit" contenteditable>Student Name</div>
+
+<div class="label">SCHOOL</div>
+<div class="edit" contenteditable>26-27 HS Preble</div>
+
+<div class="label">GRADE</div>
+<div class="edit" contenteditable>11</div>
+
+<div class="label">STUDENT NUMBER</div>
+<div class="edit" contenteditable>98026319</div>
+</div>
+</div>
+
+<div class="section">Quick Information</div>
+
+<div class="info">
+<span class="edit" contenteditable>Enrollment Status</span>
+<span class="edit" contenteditable>Active</span>
+</div>
+
+<div class="info">
+<span class="edit" contenteditable>School Year</span>
+<span class="edit" contenteditable>2026-2027</span>
+</div>
+</div>
+
+<div class="card">
+<div class="section">Announcements</div>
+<div class="announce edit" contenteditable>Welcome to your student portal.</div>
+<div class="announce edit" contenteditable>Check Assignments and Grades for updates.</div>
+</div>
+</div>
+
+<div>
+<div class="card">
+<div class="section">Inbox</div>
+<div class="announce edit" contenteditable>No new messages.</div>
+</div>
+
+<div class="card">
+<div class="section">Upcoming Dates</div>
+<div class="announce edit" contenteditable>School calendar events appear here.</div>
+</div>
+</div>
+
+<div class="card">
+<div class="section">Cart</div>
+<div class="announce edit" contenteditable>$0.00</div>
+</div>
+
+</div>
+</section>
+
+<section class="page" id="assignments">
+<h1>Assignments</h1>
+<div class="school edit" contenteditable>26-27 HS Preble</div>
+
+<div class="tabs">
+<button class="tab active" onclick="assignment(this,'current')">Current</button>
+<button class="tab" onclick="assignment(this,'missing')">Missing</button>
+</div>
+
+<div class="panel">
+
+<div class="assignrow" data-status="current">
+<b class="edit" contenteditable>Biology Lab</b>
+<span class="edit" contenteditable>Biology</span>
+<span class="edit" contenteditable>Due 10/02/2026</span>
+<span class="status">Current</span><b>›</b>
+</div>
+
+<div class="assignrow" data-status="current">
+<b class="edit" contenteditable>Chapter 4 Review</b>
+<span class="edit" contenteditable>Algebra 1</span>
+<span class="edit" contenteditable>Due 10/05/2026</span>
+<span class="status">Current</span><b>›</b>
+</div>
+
+<div class="assignrow" data-status="missing">
+<b class="edit" contenteditable>Vocabulary Work</b>
+<span class="edit" contenteditable>Engl Lang Arts 11</span>
+<span class="edit" contenteditable>Missing</span>
+<span class="status">Missing</span><b>›</b>
+</div>
+
+</div>
+</section>
+
+<section class="page" id="grades">
+<h1>Grades</h1>
+<div class="school edit" contenteditable>26-27 HS Preble</div>
+
+<div class="tabs" id="gradeTabs">
+<button class="tab active" data-t="all">All Terms</button>
+<button class="tab" data-t="q1">Q1</button>
+<button class="tab" data-t="q2">Q2</button>
+<button class="tab" data-t="q3">Q3</button>
+<button class="tab" data-t="q4">Q4</button>
+</div>
+
+<div class="term" id="gradeTerm">All Terms</div>
+
+<div class="panel">
+
+<div class="graderow">
+<div><div class="grade edit" contenteditable>Algebra 1</div><small>Progress Grade 1</small></div>
+<input class="ei" value="-">
+</div>
+
+<div class="graderow">
+<div><div class="grade edit" contenteditable>Biology</div><small>Progress Grade 1</small></div>
+<input class="ei" value="-">
+</div>
+
+<div class="graderow">
+<div><div class="grade edit" contenteditable>Engl Lang Arts 11</div><small>Progress Grade 1</small></div>
+<input class="ei" value="-">
+</div>
+
+<div class="graderow">
+<div><div class="grade edit" contenteditable>Health & Wellness</div><small>Progress Grade 1</small></div>
+<input class="ei" value="-">
+</div>
+
+</div>
+</section>
+
+<section class="page" id="attendance">
+<h1>Attendance</h1>
+<div class="school edit" contenteditable>26-27 HS Preble</div>
+
+<div class="tabs" id="attTabs">
+<button class="tab active" data-t="q1">Q1</button>
+<button class="tab" data-t="q2">Q2</button>
+<button class="tab" data-t="q3">Q3</button>
+<button class="tab" data-t="q4">Q4</button>
+</div>
+
+<div class="term" id="attTerm"></div>
+
+<div class="panel">
+<table>
+<thead>
+<tr><th>COURSE</th><th>ABSENT</th><th>TARDY</th></tr>
+</thead>
+<tbody id="attBody"></tbody>
+</table>
+</div>
+</section>
+
+<section class="page" id="schedule">
+<h1>Schedule</h1>
+<div class="school edit" contenteditable>26-27 HS Preble</div>
+
+<div class="tabs" id="schTabs">
+<button class="tab active" data-t="q1">Q1</button>
+<button class="tab" data-t="q2">Q2</button>
+<button class="tab" data-t="q3">Q3</button>
+<button class="tab" data-t="q4">Q4</button>
+</div>
+
+<div class="term" id="schTerm"></div>
+<div class="panel" id="schBody"></div>
+</section>
+
+<section class="page" id="fees">
+<h1>Fees</h1>
+<div class="school edit" contenteditable>26-27 HS Preble</div>
+
+<div class="panel">
+
+<div class="feerow head">
+<div>FEE</div><div>AMOUNT</div><div>STATUS</div>
+</div>
+
+<div class="feerow">
+<div class="edit" contenteditable>Student Fees</div>
+<input class="ei" value="$0.00">
+<div class="edit" contenteditable>Paid</div>
+</div>
+
+<div class="feerow">
+<div class="edit" contenteditable>Food Service</div>
+<input class="ei" value="$0.00">
+<div class="edit" contenteditable>Paid</div>
+</div>
+
+<div class="feerow">
+<div class="edit" contenteditable>Other Fees</div>
+<input class="ei" value="$0.00">
+<div class="edit" contenteditable>Paid</div>
+</div>
+
+</div>
+</section>
+
+<section class="page" id="calendar"><h1>Calendar</h1><div class="card" style="padding:20px"><div class="edit" contenteditable>Click here to edit this page.</div></div></section>
+<section class="page" id="gradebook"><h1>Grade Book Updates</h1><div class="card" style="padding:20px"><div class="edit" contenteditable>Click here to edit this page.</div></div></section>
+<section class="page" id="responsive"><h1>Responsive Schedule</h1><div class="card" style="padding:20px"><div class="edit" contenteditable>Click here to edit this page.</div></div></section>
+<section class="page" id="academic"><h1>Academic Plan</h1><div class="card" style="padding:20px"><div class="edit" contenteditable>Click here to edit this page.</div></div></section>
+<section class="page" id="food"><h1>Food Service</h1><div class="card" style="padding:20px"><div class="edit" contenteditable>Click here to edit this page.</div></div></section>
+<section class="page" id="documents"><h1>Documents</h1><div class="card" style="padding:20px"><div class="edit" contenteditable>Click here to edit this page.</div></div></section>
+<section class="page" id="messages"><h1>Message Center</h1><div class="card" style="padding:20px"><div class="edit" contenteditable>Click here to edit this page.</div></div></section>
+<section class="page" id="more"><h1>More</h1><div class="card" style="padding:20px"><div class="edit" contenteditable>Click here to edit this page.</div></div></section>
+
+</main>
 
 <script>
+function menu(){side.classList.toggle('open')}
 
-/* =========================
-   DATA
-========================= */
+function show(id){
+document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id==id));
+document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.p==id));
+if(innerWidth<701)side.classList.remove('open')
+}
 
-const courses = [
-  "Advisory",
-  "Algebra 1",
-  "Biology",
-  "Engl Lang Arts 11",
-  "Health & Wellness",
-  "Personal/Financial Literacy",
-  "Small Animal Vet Science",
-  "US Govt & Economic Studies"
-];
-
-
-const attendanceCourses = {
-
-  Q1:courses.map((name,i)=>({
-
-    name,
-
-    absent:[
-      10,
-      16,
-      16,
-      16,
-      17,
-      17,
-      17,
-      20
-    ][i],
-
-    tardy:[
-      2,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
-    ][i]
-
-  })),
-
-  Q2:courses.map(name=>({
-
-    name,
-    absent:0,
-    tardy:0
-
-  })),
-
-  Q3:[
-    "Advisory",
-    "Algebra 1",
-    "Biology",
-    "Engl Lang Arts 11",
-    "Individual & Dual Sports",
-    "Intro to Health Careers",
-    "US Govt & Economic Studies",
-    "World Art & Culture"
-  ].map(name=>({
-
-    name,
-    absent:0,
-    tardy:0
-
-  })),
-
-  Q4:[
-    "Advisory",
-    "Algebra 1",
-    "Biology",
-    "Engl Lang Arts 11",
-    "Individual & Dual Sports",
-    "Intro to Health Careers",
-    "US Govt & Economic Studies",
-    "World Art & Culture"
-  ].map(name=>({
-
-    name,
-    absent:0,
-    tardy:0
-
-  }))
-
+const terms={
+q1:'Term Q1 (08/31/2026 - 11/03/2026)',
+q2:'Term Q2 (11/04/2026 - 01/14/2027)',
+q3:'Term Q3 (01/15/2027 - 03/31/2027)',
+q4:'Term Q4 (04/01/2027 - 06/03/2027)'
 };
 
-
-const gradeCourses = [
-
-  "Algebra 1",
-  "Biology",
-  "Engl Lang Arts 11",
-  "Health & Wellness",
-  "Personal/Financial Literacy",
-  "Small Animal Vet Science",
-  "US Govt & Economic Studies"
-
-];
-
-
-const terms = {
-
-  Q1:"08/31/2026 - 11/03/2026",
-
-  Q2:"11/04/2026 - 01/14/2027",
-
-  Q3:"01/15/2027 - 03/31/2027",
-
-  Q4:"04/01/2027 - 06/03/2027"
-
+const att={
+q1:[
+['Advisory',9,2],
+['Algebra 1',14,0],
+['Biology',14,0],
+['Engl Lang Arts 11',14,0],
+['Flex',7,0],
+['Health & Wellness',15,0],
+['Personal/Financial Literacy',15,0],
+['Small Animal Vet Science',15,0],
+['US Govt & Economic Studies',18,0]
+],
+q2:['Advisory','Algebra 1','Biology','Engl Lang Arts 11','Health & Wellness','Personal/Financial Literacy','Small Animal Vet Science','US Govt & Economic Studies'].map(x=>[x,0,0]),
+q3:['Advisory','Algebra 1','Biology','Engl Lang Arts 11','Individual & Dual Sports','Intro to Health Careers','US Govt & Economic Studies','World Art & Culture'].map(x=>[x,0,0]),
+q4:['Advisory','Algebra 1','Biology','Engl Lang Arts 11','Individual & Dual Sports','Intro to Health Careers','US Govt & Economic Studies','World Art & Culture'].map(x=>[x,0,0])
 };
 
-
-/* =========================
-   HELPERS
-========================= */
-
-function esc(value){
-
-  return String(value).replace(
-    /[&<>"']/g,
-    function(match){
-
-      return {
-
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#39;"
-
-      }[match];
-
-    }
-  );
-
-}
-
-
-function getSaved(key,fallback){
-
-  const value = localStorage.getItem(key);
-
-  if(value === null){
-    return fallback;
-  }
-
-  return value;
-
-}
-
-
-function save(key,value){
-
-  localStorage.setItem(key,value);
-
-}
-
-
-/* =========================
-   MENU
-========================= */
-
-function toggleMenu(){
-
-  document
-    .getElementById("sidebar")
-    .classList
-    .toggle("open");
-
-}
-
-
-function setActive(page){
-
-  document
-    .querySelectorAll(".nav-item")
-    .forEach(function(item){
-
-      item.classList.toggle(
-        "active",
-        item.dataset.page === page
-      );
-
-    });
-
-  document
-    .getElementById("sidebar")
-    .classList
-    .remove("open");
-
-}
-
-
-function navigate(page){
-
-  setActive(page);
-
-  render(page);
-
-  history.replaceState(
-    null,
-    "",
-    "#" + page
-  );
-
-}
-
-
-/* =========================
-   EDITABLE INPUT
-========================= */
-
-function inputValue(
-  key,
-  fallback,
-  type="number"
-){
-
-  return `
-    <input
-      class="edit ${type==="text" ? "full-edit" : ""}"
-      type="${type}"
-      value="${esc(getSaved(key,fallback))}"
-      data-save="${esc(key)}"
-    >
-  `;
-
-}
-
-
-function wireInputs(){
-
-  document
-    .querySelectorAll("[data-save]")
-    .forEach(function(element){
-
-      element.addEventListener(
-        "input",
-        function(){
-
-          save(
-            element.dataset.save,
-            element.value
-          );
-
-        }
-      );
-
-      element.addEventListener(
-        "change",
-        function(){
-
-          save(
-            element.dataset.save,
-            element.value
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================
-   TABS
-========================= */
-
-function tabButtons(
-  items,
-  active
-){
-
-  return `
-
-    <div class="tabs">
-
-      ${items.map(function(item){
-
-        return `
-
-          <button
-            class="tab ${item===active ? "active" : ""}"
-            data-tab="${item}">
-            ${item==="ALL" ? "All Terms" : item}
-          </button>
-
-        `;
-
-      }).join("")}
-
-    </div>
-
-  `;
-
-}
-
-
-function wireTabs(
-  selector,
-  callback
-){
-
-  document
-    .querySelectorAll(selector)
-    .forEach(function(button){
-
-      button.addEventListener(
-        "click",
-        function(){
-
-          callback(
-            button.dataset.tab
-          );
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================
-   ATTENDANCE
-========================= */
-
-function renderAttendance(term="Q1"){
-
-  const rows = attendanceCourses[term];
-
-  let absentTotal = 0;
-
-  let tardyTotal = 0;
-
-
-  rows.forEach(function(row,index){
-
-    row.absent =
-      Number(
-        getSaved(
-          "att-" + term + "-" + index,
-          row.absent
-        )
-      ) || 0;
-
-    row.tardy =
-      Number(
-        getSaved(
-          "tardy-" + term + "-" + index,
-          row.tardy
-        )
-      ) || 0;
-
-
-    absentTotal += row.absent;
-
-    tardyTotal += row.tardy;
-
-  });
-
-
-  document.getElementById("app").innerHTML = `
-
-    <h1 class="page-title">
-      Attendance
-    </h1>
-
-    <div class="school-year">
-      26-27 HS Preble
-    </div>
-
-    ${tabButtons(
-      ["Q1","Q2","Q3","Q4"],
-      term
-    )}
-
-    <div class="term">
-      Term ${term}
-      &nbsp;
-      (${terms[term]})
-    </div>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-
-          <tr>
-
-            <th>
-              COURSE
-            </th>
-
-            <th class="center">
-              ABSENT
-            </th>
-
-            <th class="center">
-              TARDY
-            </th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          ${rows.map(function(row,index){
-
-            return `
-
-              <tr>
-
-                <td class="course-link">
-                  ${esc(row.name)}
-                </td>
-
-                <td class="center">
-
-                  ${inputValue(
-                    "att-" + term + "-" + index,
-                    row.absent
-                  )}
-
-                </td>
-
-                <td class="center">
-
-                  ${inputValue(
-                    "tardy-" + term + "-" + index,
-                    row.tardy
-                  )}
-
-                </td>
-
-              </tr>
-
-            `;
-
-          }).join("")}
-
-
-          <tr class="total">
-
-            <td>
-              Totals
-            </td>
-
-            <td
-              class="center"
-              id="attTotal">
-              ${absentTotal}
-            </td>
-
-            <td
-              class="center"
-              id="tardyTotal">
-              ${tardyTotal}
-            </td>
-
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
-    <div class="note">
-      All attendance boxes are editable and save automatically.
-    </div>
-
-  `;
-
-
-  wireInputs();
-
-
-  wireTabs(
-    ".tab",
-    function(tab){
-
-      renderAttendance(tab);
-
-    }
-  );
-
-
-  document
-    .querySelectorAll("[data-save]")
-    .forEach(function(element){
-
-      element.addEventListener(
-        "input",
-        function(){
-
-          let absent = 0;
-
-          let tardy = 0;
-
-
-          document
-            .querySelectorAll(
-              'input[data-save^="att-"]'
-            )
-            .forEach(function(input){
-
-              absent +=
-                Number(input.value) || 0;
-
-            });
-
-
-          document
-            .querySelectorAll(
-              'input[data-save^="tardy-"]'
-            )
-            .forEach(function(input){
-
-              tardy +=
-                Number(input.value) || 0;
-
-            });
-
-
-          document.getElementById(
-            "attTotal"
-          ).textContent = absent;
-
-
-          document.getElementById(
-            "tardyTotal"
-          ).textContent = tardy;
-
-        }
-      );
-
-    });
-
-}
-
-
-/* =========================
-   GRADES
-========================= */
-
-function renderGrades(term="Q1"){
-
-  document.getElementById("app").innerHTML = `
-
-    <h1 class="page-title">
-      Grades
-    </h1>
-
-    <div class="school-year">
-      26-27 HS Preble
-    </div>
-
-    ${tabButtons(
-      ["ALL","Q1","Q2","Q3","Q4"],
-      term
-    )}
-
-    <div class="term">
-
-      ${
-        term === "ALL"
-        ? "All Terms"
-        : "Term " + term + " (" + terms[term] + ")"
-      }
-
-    </div>
-
-
-    ${gradeCourses.map(function(course,index){
-
-      const key =
-        "grade-" +
-        term +
-        "-" +
-        index;
-
-      const defaultValue =
-        term === "Q1"
-        ? "1"
-        : "";
-
-
-      return `
-
-        <div class="grade-card">
-
-          <div class="grade-header">
-            ${esc(course)}
-          </div>
-
-          <div class="grade-row">
-
-            <span class="grade-label">
-
-              Progress Grade
-              ${term === "ALL" ? "" : term}
-
-            </span>
-
-            <span class="grade-value">
-
-              ${inputValue(
-                key,
-                defaultValue
-              )}
-
-            </span>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }).join("")}
-
-
-    <div class="note">
-      Grade boxes are editable and save automatically.
-    </div>
-
-  `;
-
-
-  wireInputs();
-
-
-  wireTabs(
-    ".tab",
-    function(tab){
-
-      renderGrades(tab);
-
-    }
-  );
-
-}
-
-
-/* =========================
-   HOME
-========================= */
-
-function renderHome(){
-
-  document.getElementById("app").innerHTML = `
-
-    <h1 class="page-title">
-      Student Profile
-    </h1>
-
-
-    <div class="home-grid">
-
-
-      <section>
-
-        <div class="profile-card">
-
-          <div class="profile-head">
-
-            <div class="avatar">
-              Student Photo
-            </div>
-
-
-            <div class="profile-info">
-
-              <h2>
-                ${esc(
-                  getSaved(
-                    "studentName",
-                    "Student Name"
-                  )
-                )}
-              </h2>
-
-
-              <p>
-                <b>Enrollment</b><br>
-                26-27 HS Preble
-              </p>
-
-
-              <p>
-                <b>Grade</b><br>
-                11
-              </p>
-
-
-              <p>
-                <b>Student Number</b><br>
-                ${esc(
-                  getSaved(
-                    "studentNumber",
-                    "0000000"
-                  )
-                )}
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="section-title">
-            Barcodes
-          </div>
-
-
-          <div style="padding:8px 15px 18px">
-
-            <button class="small-btn">
-              Student Identification
-            </button>
-
-            <button class="small-btn">
-              Food Service PIN
-            </button>
-
-
-            <div
-              style="
-                font-size:24px;
-                letter-spacing:3px;
-                margin-top:12px
-              "
-            >
-              |||| |||| ||||| |||| |||||
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="quick-card">
-
-          <div class="section-title">
-            Quick Info
-          </div>
-
-
-          <div class="quick-row">
-
-            <span>
-              Food Service Balance
-            </span>
-
-            <span>
-              ${inputValue(
-                "foodBalance",
-                "0.00",
-                "text"
-              )}
-            </span>
-
-          </div>
-
-
-          <div class="quick-row">
-
-            <span>
-              Unpaid Balance
-            </span>
-
-            <span>
-              ${inputValue(
-                "unpaidBalance",
-                "0.00",
-                "text"
-              )}
-            </span>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <section class="announcement-card">
-
-        <div class="section-title">
-          Announcements
-        </div>
-
-
-        <div class="announcement">
-
-          <h3>
-            District Announcement
-          </h3>
-
-          <p>
-            Update to Payment Processing
-            for Student Fees and Food Service
-          </p>
-
-          <p>
-            Information and announcements
-            will appear here.
-          </p>
-
-        </div>
-
-
-        <div class="section-title">
-          Inbox
-        </div>
-
-
-        <div class="announcement">
-
-          <p>
-            No messages available.
-          </p>
-
-        </div>
-
-
-        <div class="section-title">
-          Upcoming Dates
-        </div>
-
-
-        <div class="announcement">
-
-          <p>
-            10/09/2026 —
-            Teacher Work Day
-          </p>
-
-        </div>
-
-      </section>
-
-
-      <section>
-
-        <div class="cart-card">
-
-          <strong>
-            0<br>
-            Items in Cart
-          </strong>
-
-          <div>
-            $0.00
-          </div>
-
-
-          <button class="cart-btn">
-            My Cart
-          </button>
-
-          <button class="cart-btn">
-            My Accounts
-          </button>
-
-        </div>
-
-      </section>
-
-
-    </div>
-
-  `;
-
-
-  wireInputs();
-
-}
-
-
-/* =========================
-   ASSIGNMENTS
-========================= */
-
-function renderAssignments(){
-
-  const assignments = [
-
-    [
-      "Friday 10/02/2026",
-      "U1: 1.8-1.9 Quiz/Check-in",
-      "Algebra 1",
-      "MISSING",
-      "0/10 (0%)"
-    ],
-
-    [
-      "Friday 10/02/2026",
-      "Food Pyramid Project",
-      "Biology",
-      "MISSING",
-      "0/50 (0%)"
-    ],
-
-    [
-      "Monday 10/05/2026",
-      "Lesson 5.6: Refusing Substances",
-      "Health & Wellness",
-      "INCOMPLETE",
-      ""
-    ],
-
-    [
-      "Tuesday 10/06/2026",
-      "Photosynthesis Lab",
-      "Biology",
-      "",
-      ""
-    ],
-
-    [
-      "Thursday 10/08/2026",
-      "Choose Wisely",
-      "Biology",
-      "",
-      ""
-    ],
-
-    [
-      "Tuesday 10/13/2026",
-      "Unit #2 Test",
-      "Biology",
-      "",
-      ""
-    ]
-
-  ];
-
-
-  document.getElementById("app").innerHTML = `
-
-    <h1 class="page-title">
-      Assignments
-    </h1>
-
-    <div class="school-year">
-      26-27 HS Preble
-    </div>
-
-
-    <div class="assignment-toolbar">
-
-      <button class="pill active">
-        Missing
-      </button>
-
-      <button class="pill">
-        Current Term
-      </button>
-
-      <button class="pill">
-        All
-      </button>
-
-    </div>
-
-
-    <div class="card">
-
-      ${assignments.map(function(a,index){
-
-        return `
-
-          <div class="assignment-date">
-
-            ${a[0]}
-
-            ${
-              index === 2
-              ? ' <span class="status">TODAY</span>'
-              : ''
-            }
-
-          </div>
-
-
-          <div class="assignment">
-
-            <div class="assignment-title">
-              ${esc(a[1])}
-            </div>
-
-            <div class="assignment-course">
-              ${esc(a[2])}
-            </div>
-
-
-            <div>
-
-              ${
-                a[3]
-                ?
-
-                `
-                <select
-                  class="edit"
-                  data-save="assignment-status-${index}"
-                >
-
-                  <option
-                    ${
-                      a[3] === "MISSING"
-                      ? "selected"
-                      : ""
-                    }
-                  >
-                    MISSING
-                  </option>
-
-                  <option
-                    ${
-                      a[3] === "INCOMPLETE"
-                      ? "selected"
-                      : ""
-                    }
-                  >
-                    INCOMPLETE
-                  </option>
-
-                  <option>
-                    COMPLETE
-                  </option>
-
-                </select>
-                `
-
-                :
-
-                ""
-
-              }
-
-            </div>
-
-
-            <div class="score">
-              ${a[4] || ""}
-            </div>
-
-          </div>
-
-        `;
-
-      }).join("")}
-
-    </div>
-
-  `;
-
-
-  wireInputs();
-
-}
-
-
-/* =========================
-   SCHEDULE
-========================= */
-
-function renderSchedule(term="Q1"){
-
-  const periods = [
-
-    [
-      "1",
-      "US Govt & Economic Studies",
-      "7:30 AM - 8:20 AM",
-      "Crehore, T.",
-      "205"
-    ],
-
-    [
-      "2",
-      "Personal/Financial Literacy",
-      "8:25 AM - 9:15 AM",
-      "Iliff, J.",
-      "203"
-    ],
-
-    [
-      "ADV",
-      "Advisory",
-      "9:20 AM - 9:50 AM",
-      "Schwedsky, D.",
-      "237"
-    ],
-
-    [
-      "3",
-      "Biology",
-      "9:55 AM - 10:45 AM",
-      "Kendall, G.",
-      "220"
-    ],
-
-    [
-      "LA",
-      "Algebra 1",
-      "10:50 AM - 11:40 AM",
-      "Feldhausen, J.",
-      "258"
-    ]
-
-  ];
-
-
-  document.getElementById("app").innerHTML = `
-
-    <h1 class="page-title">
-      Schedule
-    </h1>
-
-    <div class="school-year">
-      26-27 HS Preble
-    </div>
-
-
-    ${tabButtons(
-      ["Q1","Q2","Q3","Q4"],
-      term
-    )}
-
-
-    <div class="term">
-
-      Term ${term}
-      &nbsp;
-      (${terms[term]})
-
-    </div>
-
-
-    <div class="schedule-day">
-
-      <div class="day-label">
-        DAY: MAIN
-      </div>
-
-
-      ${periods.map(function(p,index){
-
-        return `
-
-          <div class="period">
-
-            <div class="period-num">
-              ${p[0]}
-            </div>
-
-
-            <div>
-
-              <div class="subject">
-
-                ${inputValue(
-                  "sched-subject-" +
-                  term +
-                  "-" +
-                  index,
-                  p[1],
-                  "text"
-                )}
-
-              </div>
-
-
-              <div class="subtext">
-
-                ${inputValue(
-                  "sched-time-" +
-                  term +
-                  "-" +
-                  index,
-                  p[2],
-                  "text"
-                )}
-
-              </div>
-
-            </div>
-
-
-            <div class="teacher">
-
-              Teacher:
-
-              ${inputValue(
-                "sched-teacher-" +
-                term +
-                "-" +
-                index,
-                p[3],
-                "text"
-              )}
-
-              <br>
-
-              Room:
-
-              ${inputValue(
-                "sched-room-" +
-                term +
-                "-" +
-                index,
-                p[4],
-                "text"
-              )}
-
-              <br>
-
-              Start:
-              09/08/2026
-
-            </div>
-
-          </div>
-
-        `;
-
-      }).join("")}
-
-    </div>
-
-  `;
-
-
-  wireInputs();
-
-
-  wireTabs(
-    ".tab",
-    function(tab){
-
-      renderSchedule(tab);
-
-    }
-  );
-
-}
-
-
-/* =========================
-   FEES
-========================= */
-
-function renderFees(){
-
-  document.getElementById("app").innerHTML = `
-
-    <h1 class="page-title">
-      Fees
-    </h1>
-
-    <div class="school-year">
-      26-27 HS Preble
-    </div>
-
-
-    <div class="fee-card">
-
-      <div class="fee-row">
-
-        <span class="fee-label">
-          Current Balance
-        </span>
-
-        <span class="fee-value">
-          $
-          ${esc(
-            getSaved(
-              "feesBalance",
-              "0.00"
-            )
-          )}
-        </span>
-
-      </div>
-
-
-      <div class="fee-row">
-
-        <span class="fee-label">
-          Balance
-        </span>
-
-        <span>
-          ${inputValue(
-            "feesBalance",
-            "0.00",
-            "text"
-          )}
-        </span>
-
-      </div>
-
-
-      <div class="fee-row">
-
-        <span class="fee-label">
-          Payment Amount
-        </span>
-
-        <span>
-          ${inputValue(
-            "paymentAmount",
-            "0.00",
-            "text"
-          )}
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <div class="note">
-      Fee boxes are editable and save automatically.
-    </div>
-
-  `;
-
-
-  wireInputs();
-
-}
-
-
-/* =========================
-   STATIC PAGES
-========================= */
-
-function renderCalendar(){
-
-  renderSimple(
-    "Calendar",
-    '<div class="empty">Calendar events will appear here.</div>'
-  );
-
-}
-
-
-function renderSimple(
-  title,
-  body
-){
-
-  document.getElementById("app").innerHTML = `
-
-    <h1 class="page-title">
-      ${title}
-    </h1>
-
-    ${body}
-
-  `;
-
-}
-
-
-/* =========================
-   PAGE ROUTING
-========================= */
-
-function render(page){
-
-  if(page === "home"){
-    return renderHome();
-  }
-
-
-  if(page === "attendance"){
-    return renderAttendance("Q1");
-  }
-
-
-  if(page === "grades"){
-    return renderGrades("Q1");
-  }
-
-
-  if(page === "assignments"){
-    return renderAssignments();
-  }
-
-
-  if(page === "schedule"){
-    return renderSchedule("Q1");
-  }
-
-
-  if(page === "fees"){
-    return renderFees();
-  }
-
-
-  /* STATIC PAGES */
-
-  if(page === "calendar"){
-
-    return renderCalendar();
-
-  }
-
-
-  if(page === "gradebook"){
-
-    return renderSimple(
-      "Grade Book Updates",
-      '<div class="empty">No grade book updates available.</div>'
-    );
-
-  }
-
-
-  if(page === "responsive"){
-
-    return renderSimple(
-      "Responsive Schedule",
-      '<div class="empty">Responsive schedule will appear here.</div>'
-    );
-
-  }
-
-
-  if(page === "academic"){
-
-    return renderSimple(
-      "Academic Plan",
-      '<div class="empty">Academic plan information will appear here.</div>'
-    );
-
-  }
-
-
-  if(page === "food"){
-
-    return renderSimple(
-      "Food Service",
-      '<div class="empty">Food service information will appear here.</div>'
-    );
-
-  }
-
-
-  if(page === "documents"){
-
-    return renderSimple(
-      "Documents",
-      '<div class="empty">No documents available.</div>'
-    );
-
-  }
-
-
-  if(page === "messages"){
-
-    return renderSimple(
-      "Message Center",
-      '<div class="empty">No messages available.</div>'
-    );
-
-  }
-
-
-  if(page === "more"){
-
-    return renderSimple(
-      "More",
-      '<div class="empty">Additional options will appear here.</div>'
-    );
-
-  }
-
-
-  renderHome();
-
-}
-
-
-/* =========================
-   SIDEBAR CLICKING
-========================= */
-
-document
-  .querySelectorAll(".nav-item")
-  .forEach(function(item){
-
-    item.addEventListener(
-      "click",
-      function(){
-
-        navigate(
-          item.dataset.page
-        );
-
-      }
-    );
-
-  });
-
-
-/* =========================
-   START PAGE
-========================= */
-
-const allowedPages = [
-
-  "home",
-  "calendar",
-  "assignments",
-  "grades",
-  "gradebook",
-  "attendance",
-  "schedule",
-  "responsive",
-  "academic",
-  "food",
-  "fees",
-  "documents",
-  "messages",
-  "more"
-
-];
-
-
-const start =
-  location.hash.replace("#","") ||
-  "home";
-
-
-render(
-  allowedPages.includes(start)
-  ? start
-  : "home"
+function renderAtt(t){
+attTerm.textContent=terms[t];
+let b=attBody,a=0,r=0;
+b.innerHTML='';
+
+att[t].forEach((x,i)=>{
+let av=localStorage.getItem('a-'+t+'-'+i);
+let tv=localStorage.getItem('t-'+t+'-'+i);
+
+av=av===null?x[1]:av;
+tv=tv===null?x[2]:tv;
+
+a+=+av||0;
+r+=+tv||0;
+
+b.insertAdjacentHTML('beforeend',
+`<tr>
+<td class="course edit" contenteditable>${x[0]}</td>
+<td class="c"><input class="ei" type="number" min="0" value="${av}"></td>
+<td class="c"><input class="ei" type="number" min="0" value="${tv}"></td>
+</tr>`);
+});
+
+b.insertAdjacentHTML('beforeend',
+`<tr class="total">
+<td>Totals</td>
+<td class="c" id="at">${a}</td>
+<td class="c" id="tt">${r}</td>
+</tr>`);
+
+b.querySelectorAll('input').forEach((e,i)=>e.oninput=()=>{
+localStorage.setItem(
+(i%2?'t-':'a-')+t+'-'+Math.floor(i/2),
+Math.max(0,+e.value||0)
 );
 
+let aa=0,rr=0;
+
+b.querySelectorAll('input').forEach((z,j)=>
+j%2?rr+=+z.value||0:aa+=+z.value||0
+);
+
+at.textContent=aa;
+tt.textContent=rr;
+});
+}
+
+function tabs(id,cb){
+document.querySelectorAll('#'+id+' .tab').forEach(b=>b.onclick=()=>{
+document.querySelectorAll('#'+id+' .tab').forEach(x=>x.classList.remove('active'));
+b.classList.add('active');
+cb(b.dataset.t);
+});
+}
+
+tabs('attTabs',renderAtt);
+
+const sch={
+q1:[
+['1','US Govt & Economic Studies','7:30 AM - 8:20 AM','Teacher: Crehore, T.','Room: 205','Start: 09/08/2026'],
+['2','Personal/Financial Literacy','8:25 AM - 9:15 AM','Teacher: Iliff, J.','Room: 203','Start: 09/08/2026'],
+['ADV','Advisory','9:20 AM - 9:50 AM','Teacher: Schwedrsky, D.','Room: 237','Start: 09/08/2026'],
+['3','Biology','9:55 AM - 10:45 AM','Teacher: Kendall, G.','Room: 220','Start: 09/08/2026'],
+['LA','Algebra 1','10:50 AM - 11:25 AM','Teacher: Feldhausen, J.','Room: 258','Start: 09/08/2026'],
+['4','Algebra 1','11:30 AM - 11:40 AM','Teacher: Feldhausen, J.','Room: 258','Start: 09/08/2026'],
+['LB','Health & Wellness','11:45 AM - 12:20 PM','Teacher: Senso, N.','Room: 264','Start: 09/08/2026']
+],
+q2:[],q3:[],q4:[]
+};
+
+function renderSch(t){
+schTerm.textContent=terms[t];
+
+schBody.innerHTML=
+'<div style="padding:8px 14px"><span class="sday">DAY: MAIN</span></div>';
+
+if(!sch[t].length){
+schBody.innerHTML+='<div style="padding:30px;color:#888">No schedule entries yet.</div>';
+return;
+}
+
+sch[t].forEach(x=>
+schBody.insertAdjacentHTML('beforeend',
+`<div class="srow">
+<div class="period">${x[0]}</div>
+<div>
+<div class="course edit" contenteditable>${x[1]}</div>
+<div class="stime edit" contenteditable>${x[2]}</div>
+</div>
+<div class="teacher">
+<b class="edit" contenteditable>${x[3]}</b><br>
+<span class="edit" contenteditable>${x[4]}</span><br>
+<span class="edit" contenteditable>${x[5]}</span>
+</div>
+</div>`)
+);
+}
+
+tabs('schTabs',renderSch);
+
+tabs('gradeTabs',t=>
+gradeTerm.textContent=t=='all'?'All Terms':terms[t]
+);
+
+function assignment(b,s){
+b.parentNode.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+b.classList.add('active');
+
+document.querySelectorAll('#assignments .assignrow').forEach(x=>
+x.style.display=x.dataset.status==s?'grid':'none'
+);
+}
+
+renderAtt('q1');
+renderSch('q1');
 </script>
 
-</body>
-</html>
+</body></html>
